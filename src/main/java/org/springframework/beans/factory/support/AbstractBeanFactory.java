@@ -10,14 +10,23 @@ import org.springframework.beans.factory.config.BeanDefinition;
  */
 public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory {
 
+	/**
+	 * 实现BeanFactory接口的getBean方法
+	 * @param name
+	 * @return
+	 * @throws BeansException
+	 */
 	@Override
 	public Object getBean(String name) throws BeansException {
+		// 继承DefaultSingletonBeanRegistry的getSingleton方法
+		// 直接去拿singleton，有则就直接返回
 		Object bean = getSingleton(name);
 		if (bean != null) {
 			return bean;
 		}
-
+		// 拿beanDefinition
 		BeanDefinition beanDefinition = getBeanDefinition(name);
+		// 根据beanDefinition创建具体的bean
 		return createBean(name, beanDefinition);
 	}
 

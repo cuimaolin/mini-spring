@@ -14,11 +14,23 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 
 	private Map<String, BeanDefinition> beanDefinitionMap = new HashMap<>();
 
+	/**
+	 * 实现BeanDefinitionRegistry接口，
+	 * 建立beanName与对应beanDefinition的映射
+	 * @param beanName
+	 * @param beanDefinition
+	 */
 	@Override
 	public void registerBeanDefinition(String beanName, BeanDefinition beanDefinition) {
 		beanDefinitionMap.put(beanName, beanDefinition);
 	}
 
+	/**
+	 * 复写AbstractAutowireCapableBeanFactory抽象类的getBeanDefinition方法
+	 * @param beanName
+	 * @return
+	 * @throws BeansException
+	 */
 	@Override
 	protected BeanDefinition getBeanDefinition(String beanName) throws BeansException {
 		BeanDefinition beanDefinition = beanDefinitionMap.get(beanName);
